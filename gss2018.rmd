@@ -1,6 +1,6 @@
 ---
 title: "General Social Survey"
-author: "Your Name"
+author: "Bada"
 date: "Year 2019"
 output: 
   html_document:
@@ -38,7 +38,9 @@ levels(mydata4$VOTE12)[2] <- "no in 12"
 
 This data is from the 2018 General Social Survey. The first blocks of R-code has selected down a subset of the data to just 15 variables. It has further removed unwanted factor levels in much of the data. Examine that code to see what it is doing. Finally address this question.  Is opinion on the death penalty (CAPPUN) independent of gun ownership (OWNGUN)?
 
+$H_0$ From the resuit of Graphical descriptive there is no relationship between Gun onwership and death penalty.
 
+$H_1$ There is relationship between gun Onwership and death penalty.
 ## Methods
 
 <!--Decide on your methods:  use "variable analysis" or other appropriate descriptors.  Make sure to choose at least one graphical method and at least one numerical method.!-->
@@ -52,14 +54,30 @@ This data is from the 2018 General Social Survey. The first blocks of R-code has
 #### Graphical Descriptive Results
 
 <!--Graphical results here.  Make sure to show your code.  Provide appropriate labels for axes, giving units if possible, and provide a good title for the graph, too.  Use the graphical results to describe the patterns if any that exist in the data as focused toward the research question!-->
+```{r}
+barchartGC(~CAPPUN +OWNGUN ,data=mydata4)
+barchartGC(~CAPPUN +OWNGUN ,data=mydata4, type="percentage")
+```
+The bar chart show that the is relationship between Gun onwership and death penailty.It clear that the people that owns guns are likely to favor death penailty  however we don't have enough data to reject the resuit.
 
 #### Numerical Descriptive Results
 
 <!--Numerical results go here. Use the numerical results to describe the patterns if any that exist in the data as focused toward the research question!-->
-
+```{r}
+table1 <- xtabs(~CAPPUN + OWNGUN, data=mydata4)
+rowPerc(table1)
+colPerc(table1)
+```
+The numerical resuit show that 30 pecenty of Gun owner's oppose death penalty, while 70 percent of gun owners are more likely to favor death penalty. There for there is relationship between Gun ownership and death penalty. 
 ### Inferential Results
 
 <!--State hypothesis clearly.  Make sure your discussion of the inferential test covers all the aspects that the test output produces, such as test statistic, p-value etc.  Make a decision about the null hypothesis, explain the assumptions on which the selected test/procedure was based, and why the chosen procedure satisfys the assumptions and is appropriate to answer the research question!-->
+```{r}
+chisq.test(table1)
+chisqtestGC(table1)
+fisher.test(table1)
+```
+$H_0$ There is no relationship between Gun ownership and Capital punishment. Given that only 2 percenty of the time do we have this posible resuit. The p- Value = 0.02020 I choose to reject the null hypothesis. 
 
 # Introduction Question 2
 
@@ -80,14 +98,31 @@ Now answer Is belief in the bigbang theory (BIGBANG) independent of belief in th
 #### Graphical Descriptive Results
 
 <!--Graphical results here.  Make sure to show your code.  Provide appropriate labels for axes, giving units if possible, and provide a good title for the graph, too.  Use the graphical results to describe the patterns if any that exist in the data as focused toward the research question!-->
+```{r}
+
+barchartGC(~POSTLIFE+BIGBANG  ,data=mydata4, type="percent")
+```
+From the graphical results the pattern show that there is diffrent between the people that believe in Bigbang thoery is true and people that did not believe in Bigbang thoery.
 
 #### Numerical Descriptive Results
 
 <!--Numerical results go here. Use the numerical results to describe the patterns if any that exist in the data as focused toward the research question!-->
+```{r}
+table1 <- xtabs(~BIGBANG +POSTLIFE, data=mydata4)
+rowPerc(table1)
+colPerc(table1)
+```
+The Numeriacl resuilts show that 56.77 percent postlife did not beleive in Bigbang theory, while 43.23 believe in the BigBang theory.there is no enogh evidence to support the null altenative.
 
 ### Inferential Results
 
 <!--State hypothesis clearly.  Make sure your discussion of the inferential test covers all the aspects that the test output produces, such as test statistic, p-value etc.  Make a decision about the null hypothesis, explain the assumptions on which the selected test/procedure was based, and why the chosen procedure satisfys the assumptions and is appropriate to answer the research question!-->
+```{r}
+chisq.test(table1)
+chisqtestGC(table1)
+fisher.test(table1)
+```
+We fail to reject the Null hypothesis. Since the P-Value = 0.0801 which is greater than 0.05. 
 
 # Introduction Question 3
 
@@ -108,17 +143,48 @@ Finally determine if a persons opinion on death penalty (CAPPUN) is independent 
 #### Graphical Descriptive Results
 
 <!--Graphical results here.  Make sure to show your code.  Provide appropriate labels for axes, giving units if possible, and provide a good title for the graph, too.  Use the graphical results to describe the patterns if any that exist in the data as focused toward the research question!-->
+```{r}
+barchartGC(~CAPPUN +RACE ,data=mydata4)
+barchartGC(~CAPPUN +RACE ,data=mydata4,type="percentage")
+```
+The graphical results show that Capital punisement is race related. Whute people favore Capital punisment at a greater numbers, while Black people oppose the Capetal punishment, Also Other people are more in Favor of Capital punisment.
 
 #### Numerical Descriptive Results
 
 <!--Numerical results go here. Use the numerical results to describe the patterns if any that exist in the data as focused toward the research question!-->
+```{r}
+table1 <- xtabs(~CAPPUN +RACE, data=mydata4)
+rowPerc(table1)
+colPerc(table1)
+```
+The Numeriacl resuilts show that 68.66 percent of White people  Favor Capital punishment, while 12.93 percent of other people also favor, while the Black peopl oppose the capital punisement.  
 
 ### Inferential Results
 
 <!--State hypothesis clearly.  Make sure your discussion of the inferential test covers all the aspects that the test output produces, such as test statistic, p-value etc.  Make a decision about the null hypothesis, explain the assumptions on which the selected test/procedure was based, and why the chosen procedure satisfys the assumptions and is appropriate to answer the research question!-->
-
+```{r}
+chisq.test(table1)
+chisqtestGC(table1)
+fisher.test(table1)
+```
+We rejecy the Null hypothesis because the p- value = 0.0012.
 
 # Discussion and Conclusion
 
 <!--Discussion and conclusion here.  If you found a relationship be sure to consider whether the relationship occurs because one of the variavbles causes the other, or whether they perhasps are related for some other reason.  Watch the chapter 6 videos from the GeorgeTown videos collection.!-->
+Quesion 1. 
+
+ There is relationship between Gun ownership and death penalty.The bar chart show that the is relationship between Gun onwership and death penailty.It clear that the people that owns guns are likely to favor death penailty  however we don't have enough data to reject null Hypotheesis. the resuit.Also The numerical resuit show that 30 pecenty of Gun owner's oppose death penalty, while 70 percent of gun owners are more likely to favor death penalty. There for there is relationship between Gun ownership and death penalty. 
+
+$H_0$ There is no relationship between Gun ownership and Capital punishment. Given that only 2 percenty of the time do we have this posible resuit. The p- Value = 0.02020 I choose to reject the null hypothesis.
+
+
+Quesion 2.
+
+From the graphical results the pattern show that there is diffrent between the people that believe in Bigbang thoery is true and people that did not believe in Bigbang thoery.   Since the P-Value = 0.0801 which is greater than 0.05. We fail to reject the Null hypothesis. 
+
+
+Quesion 3. 
+
+ The graphical results show that Capital punisement is race related. Whute people favore Capital punisment at a greater numbers, while Black people oppose the Capetal punishment, Also Other people are more in Favor of Capital punisment. The Numeriacl resuilts show that 68.66 percent of White people  Favor Capital punishment, while 12.93 percent of other people also favor, while the Black peopl oppose the capital punisement.  because the p- value = 0.0012. We rejecy the Null hypothesis
 
